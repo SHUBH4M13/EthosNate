@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import blockchainUtils from "./utils/blockchain"; 
+
+import {
+    getProviderAndSigner,
+    createCampaignOnBlockchain,
+    GetAllCampaigns
+  } from "./utils/blockchain";
+
 
 export default function AddNewCampaign() {
     const [formData, setFormData] = useState({
@@ -18,7 +24,7 @@ export default function AddNewCampaign() {
 
     const createNewCampaign = async (data) => {
         try {
-            await blockchainUtils.createCampaignOnBlockchain(data);
+            await createCampaignOnBlockchain(data);
             alert("✅ New campaign added! Refresh the page.");
         } catch (error) {
             console.error("❌ Failed to create campaign:", error);

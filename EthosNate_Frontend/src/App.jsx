@@ -6,6 +6,7 @@ import {
   createCampaignOnBlockchain,
   GetAllCampaigns
 } from "./utils/blockchain";
+import AddNewCampaign from "./AddNewCampaign";
 
 function App() {
   useEffect(() => {
@@ -19,8 +20,7 @@ function App() {
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold mb-4">Decentralized Campaigns</h1>
-      <QuotesCarousel />
+      <AddNewCampaign/>
     </div>
   );
 }
