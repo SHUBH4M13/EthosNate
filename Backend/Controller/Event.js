@@ -9,16 +9,12 @@ async function HandleAddEvent(req,res){
     try {
         const body = req.body;
 
-        if(!body.EventTitle || !body.EventDesc || !body.Goal || !body.Deadline){
-            return res.status(400).json({ error: "Missing required fields" })
-        }
-
-        const deadlineDate = new Date(Date.now() + parseInt(body.Deadline) * 24 * 60 * 60 * 1000);
+        const deadlineDate = new Date(Date.now() + parseInt(body.duration) * 24 * 60 * 60 * 1000);
 
         const isAdded = await EventsCollection.create({
-            EventTitle: body.EventTitle,
-            EventDesc: body.EventDesc,
-            Goal: body.Goal,
+            EventTitle: body.title,
+            EventDesc: body.description,
+            Goal: body.goal,
             ContractAddress : body.ContractAddress,
             Deadline: deadlineDate
         });
@@ -41,13 +37,14 @@ async function HandleGetSpecificEvent(req,res){
     }
 }
 
-// async function HandleUpdateEvent(req,res){
-//     try {
-//         const body = req.body;
-//     } catch (error) {
+async function HandleUpdateEvent(req,res){
+    try {
+        const body = req.body;
         
-//     }
-// }
+    } catch (error) {
+        
+    }
+}
 
 // async function HandleDeleteEvent(req,res){
 //     try {
