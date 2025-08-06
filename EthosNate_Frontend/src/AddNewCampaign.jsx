@@ -27,9 +27,13 @@ export default function AddNewCampaign() {
     const createNewCampaign = async (data) => {
         try {
             const contract_address = await createCampaignOnBlockchain(data);
-            formData.ContractAddress = contract_address;
+            const payload = {
+                ...formData ,
+                ContractAddress: contract_address
+            };
+        
+            const res = await axios.post("http://localhost:8007/add/event", payload);
             alert("New campaign added! Refresh the page.");
-            const res = await axios.post("http://localhost:8007/add/event", formData);
 
             if( res.status === 201 ){
                 console.log("Successfully added")

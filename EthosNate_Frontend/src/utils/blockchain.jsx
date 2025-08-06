@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import factoryABI from "../ABIS/factoryABI.json";
+import ContractABI from "../ABIS/ContractABI.json"
 
 const FACTORY_CONTRACT_ADDRESS = import.meta.env.VITE_APP_FACTORY_KEY;
 const ALCHEMY_API_KEY = import.meta.env.VITE_APP_ALCHEMY_API_KEY;
@@ -24,7 +25,7 @@ export async function createCampaignOnBlockchain({ title, goal, duration }) {
   const receipt = await tx.wait();
 
 
-  console.log("receipt: " , receipt);
+  console.log("receipt: ", receipt);
 
   const event = receipt.logs
     .map(log => {
@@ -39,7 +40,7 @@ export async function createCampaignOnBlockchain({ title, goal, duration }) {
   if (!event) {
     throw new Error("CampaignCreated event not found in transaction logs");
   }
-  
+
   const campaignAddress = event.args.campaignAddress;
 
   console.log("Campaign created at address:", campaignAddress);
@@ -51,5 +52,19 @@ export async function GetAllCampaigns() {
   const factoryContract = new ethers.Contract(FACTORY_CONTRACT_ADDRESS, factoryABI, provider);
 
   const Data = await factoryContract.getAllCampaigns();
+  console.log(Data);
   return Data;
+}
+
+export async function PayToCampaign({ value, campaignAddress }) {
+  console.log(campaignAddress);
+  const { signer } = await getProviderAndSigner();
+  const campaignContract = new ethers.Contract(campaignAddress,ContractABI,signer);
+
+  const tx = await campaignContract.donate({
+    value: ethers.parseEther(value)
+  });
+
+  await tx.wait();
+  return tx;
 }

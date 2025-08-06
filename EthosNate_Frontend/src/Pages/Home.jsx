@@ -1,7 +1,6 @@
 import React from 'react'
 import Herosection from '../Herosection'
 import Footer from '../Footer'
-import CharityCards from "../CharityCards"
 import QuotesCarasouel from "../QuotesCarousel"
 import CampaginSection from "../CampaginSection"
 
