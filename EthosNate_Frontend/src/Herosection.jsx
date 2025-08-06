@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
 import PhotoGrid from "./PhotoGrid"
+import ShineButton from "./ShineButton"
 
 function Herosection() {
     const navigate = useNavigate();
@@ -15,12 +16,9 @@ function Herosection() {
                         <p className="max-w-2xl mb-6 font-light text-black lg:mb-8 md:text-lg lg:text-xl">
                             With EthosNate, your contributions are secured on-chain — visible to all, controlled by none.
                             Build impact with smart contracts, not middlemen.</p>
-                        <button 
-                        onClick={ () => { navigate("/add/campaign")}}
-                        className=" cursor-pointer inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-[#3b7d2e] hover:bg-[#255e1b] focus:ring-4 focus:ring-[#3b7d2e]/30 transition-colors duration-200"
-                        >
-                            Create a Campaign
-                        </button>
+                        <ShineButton 
+                        onClick={ () => { navigate("/add/campaign") }}
+                        Text={"Create a Campaign"} />
                     </div>
                     <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
                         <PhotoGrid/>

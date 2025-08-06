@@ -9,6 +9,6 @@ async function ConnectDB(url){
     })
 }
 
-module.exports = {
+export {
     ConnectDB,
 }

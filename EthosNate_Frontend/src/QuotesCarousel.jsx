@@ -71,7 +71,7 @@ const QuotesCarousel = () => {
               </p>
               <div className="mx-auto mt-5">
                 <div className="flex flex-col items-center justify-center space-x-3">
-                  <div className="font-regular text-sm text-gray-900/80">
+                  <div className="font-regular text-sm text-[#2e7d32]/80">
                     {author}
                   </div>
                 </div>

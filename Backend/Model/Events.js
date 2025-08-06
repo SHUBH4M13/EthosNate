@@ -13,6 +13,10 @@ const EventScehma = new mongoose.Schema({
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: "Admin"
   // },
+  ContractAddress:{
+    type: String,
+    required: true,
+  },
   Goal:{
     type: String,
     required: true,
@@ -23,12 +27,12 @@ const EventScehma = new mongoose.Schema({
     default: "0"
   },
   isCompleted:{
-    type: bool,
+    type: Boolean,
     default: false,
     required: true,
   },
   Deadline:{
-    type: String,
+    type: Date,
     required: true
   }
 } , {timestamps: true} );
@@ -36,4 +40,4 @@ const EventScehma = new mongoose.Schema({
 
 const EventsCollection = mongoose.model("EventsCollection" , EventScehma);
 
-module.exports = EventsCollection;
+export default EventsCollection;
