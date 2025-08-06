@@ -21,19 +21,35 @@ export async function createCampaignOnBlockchain({ title, goal, duration }) {
   const parseGoalEth = ethers.parseEther(goal.toString());
 
   const tx = await factoryContract.createCampaign(title, parseGoalEth, duration);
-  await tx.wait();
+  const receipt = await tx.wait();
 
-  console.log("Campaign created on blockchain");
+
+  console.log("receipt: " , receipt);
+
+  const event = receipt.logs
+    .map(log => {
+      try {
+        return factoryContract.interface.parseLog(log);
+      } catch {
+        return null;
+      }
+    })
+    .find(log => log && log.name === "CampaignCreated");
+
+  if (!event) {
+    throw new Error("CampaignCreated event not found in transaction logs");
+  }
+  
+  const campaignAddress = event.args.campaignAddress;
+
+  console.log("Campaign created at address:", campaignAddress);
+  return campaignAddress;
 }
 
 export async function GetAllCampaigns() {
   const provider = new ethers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`);
   const factoryContract = new ethers.Contract(FACTORY_CONTRACT_ADDRESS, factoryABI, provider);
 
-  console.log("Factory Address:", FACTORY_CONTRACT_ADDRESS);
-  console.log("Network:", await provider.getNetwork());
-
   const Data = await factoryContract.getAllCampaigns();
-  console.log(Data)
   return Data;
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios"
 
 import {
     getProviderAndSigner,
@@ -12,6 +13,7 @@ export default function AddNewCampaign() {
         title: "",
         description: "",
         goal: "",
+        ContractAddress: "",
         duration: "",
     });
 
@@ -24,10 +26,16 @@ export default function AddNewCampaign() {
 
     const createNewCampaign = async (data) => {
         try {
-            await createCampaignOnBlockchain(data);
-            alert("✅ New campaign added! Refresh the page.");
+            const contract_address = await createCampaignOnBlockchain(data);
+            formData.ContractAddress = contract_address;
+            alert("New campaign added! Refresh the page.");
+            const res = await axios.post("http://localhost:8007/add/event", formData);
+
+            if( res.status === 201 ){
+                console.log("Successfully added")
+            }
         } catch (error) {
-            console.error("❌ Failed to create campaign:", error);
+            console.error("Failed to create campaign:", error);
         }
     };
 

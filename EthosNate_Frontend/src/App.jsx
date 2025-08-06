@@ -1,28 +1,37 @@
-import { useEffect } from "react";
-import ShineButton from "./ShineButton";
-import QuotesCarousel from "./QuotesCarousel";
-import {
-  getProviderAndSigner,
-  createCampaignOnBlockchain,
-  GetAllCampaigns
-} from "./utils/blockchain";
-import AddNewCampaign from "./AddNewCampaign";
+import Home from "./Pages/Home"
+import AddNewCampaign from "./AddNewCampaign"
+import {createBrowserRouter , RouterProvider } from "react-router"
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />
+  },
+  {
+    path: "/add/campaign",
+    element: <AddNewCampaign />
+  },
+  {
+    path: "/"
+  },
+])
+
 
 function App() {
-  useEffect(() => {
-    const fetchCampaigns = async () => {
-      const data = await GetAllCampaigns();
-      console.log("All Campaigns:", data);
-    };
-
-    fetchCampaigns();
-  }, []);
-
   return (
-    <div className="p-6">
-      <AddNewCampaign/>
+    <div>
+      <RouterProvider router={router} />
     </div>
   );
 }
 
 export default App;
+
+//  // useEffect(() => {
+//   const fetchCampaigns = async () => {
+//     const data = await GetAllCampaigns();
+//     console.log("All Campaigns:", data);
+//   };
+
+//   fetchCampaigns();
+// }, []);
